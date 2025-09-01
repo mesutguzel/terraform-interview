@@ -11,3 +11,11 @@ module "network" {
   vpc_cidr = var.vpc_cidr
   azs      = local.azs
 }
+
+module "compute" {
+  source            = "./modules/ec2"
+  vpc_id            = module.network.vpc_id
+  public_subnet_ids = module.network.public_subnet_ids
+  instance_type     = var.instance_type
+  key_name          = var.key_name
+}
